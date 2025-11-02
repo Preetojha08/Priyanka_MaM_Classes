@@ -281,6 +281,43 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📝 Changelog
 
+### v1.1.0 (2024-01-15) - UI/UX Enhancement
+**Complete Visual Redesign & Refinement**
+
+#### 🎨 Design System Improvements
+- **New Color Palette**: Updated to modern, friendly colors (#E53935 primary red, #F9A825 accent gold)
+- **Enhanced Typography**: Improved font scales and spacing for better readability
+- **Gradient System**: Added gradient backgrounds, borders, and text effects
+- **Shadow System**: Introduced soft, medium, hard, colored, and accent shadows
+- **Glass-morphism**: Added backdrop blur and glass-effect components
+
+#### ✨ Visual Enhancements
+- **Hero Section**: Enhanced background patterns, improved animations, better visual hierarchy
+- **Navigation Bar**: Glass-morphism effect, improved hover states, better mobile menu
+- **Footer**: Gradient background with pattern overlays, enhanced link hover effects
+- **Cards**: Improved styling with glass-effect, better borders, enhanced shadows
+- **Buttons**: Updated micro-interactions with hover/active states, gradient overlays
+- **Forms**: Enhanced input fields with better focus states and visual feedback
+- **Icons**: Improved icon containers with gradients and shadow effects
+
+#### 🔄 Animations & Transitions
+- **Framer Motion**: Enhanced animations for smoother transitions
+- **Hover Effects**: Added scale transforms and micro-interactions throughout
+- **Loading States**: Improved loading and success/error feedback
+- **Page Transitions**: Smoother fade-in and slide-up animations
+
+#### 📱 Responsiveness
+- **Mobile Optimization**: Improved spacing and layout on small screens
+- **Tablet Layout**: Better grid arrangements for medium-sized devices
+- **Desktop Experience**: Enhanced visual hierarchy and spacing
+
+#### 🎯 Functional Integrity Maintained
+- All AWS integration intact (API Gateway, Lambda, SES)
+- Form validation working correctly (React Hook Form + Zod)
+- Contact/Demo/Fee-quote forms fully functional
+- All routes and navigation working
+- SEO and accessibility preserved
+
 ### v1.0.0 (2024-01-01)
 - Initial release
 - Complete website with all pages

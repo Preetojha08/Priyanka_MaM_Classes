@@ -127,7 +127,7 @@ export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
           <h3 className="text-2xl font-display font-bold text-ink mb-2">
             {getFormTitle()}
           </h3>
-          <p className="text-gray-600">
+          <p className="text-neutral-600">
             {getFormDescription()}
           </p>
         </div>
@@ -177,13 +177,13 @@ export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Parent Name */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Parent Name *
               </label>
               <input
                 type="text"
                 {...register('parentName')}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                className="input-field"
                 placeholder="Enter parent's name"
               />
               {errors.parentName && (
@@ -193,13 +193,13 @@ export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
 
             {/* Student Name */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Student Name *
               </label>
               <input
                 type="text"
                 {...register('studentName')}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                className="input-field"
                 placeholder="Enter student's name"
               />
               {errors.studentName && (
@@ -211,12 +211,12 @@ export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Grade */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Grade *
               </label>
               <select
                 {...register('grade')}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                className="input-field"
               >
                 <option value="">Select Grade</option>
                 {config.grades.map((grade) => (
@@ -232,13 +232,13 @@ export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
 
             {/* Phone */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Phone Number *
               </label>
               <input
                 type="tel"
                 {...register('phone')}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                className="input-field"
                 placeholder="+91 9876543210"
               />
               {errors.phone && (
@@ -249,13 +249,13 @@ export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-neutral-700 mb-2">
               Email Address *
             </label>
             <input
               type="email"
               {...register('email')}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+              className="input-field"
               placeholder="parent@example.com"
             />
             {errors.email && (
@@ -265,19 +265,19 @@ export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
 
           {/* Subjects */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-3">
+            <label className="block text-sm font-semibold text-neutral-700 mb-3">
               Subjects of Interest *
             </label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {config.subjects.map((subject) => (
-                <label key={subject} className="flex items-center space-x-2 cursor-pointer">
+                <label key={subject} className="flex items-center space-x-2 cursor-pointer group">
                   <input
                     type="checkbox"
                     value={subject}
                     {...register('subjects')}
-                    className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                    className="w-4 h-4 text-primary border-neutral-300 rounded focus:ring-primary focus:ring-2 transition-all duration-200"
                   />
-                  <span className="text-sm text-gray-700">{subject}</span>
+                  <span className="text-sm text-neutral-700 group-hover:text-primary transition-colors">{subject}</span>
                 </label>
               ))}
             </div>
@@ -289,12 +289,12 @@ export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
           {/* Preferred Time (for demo and fee-quote) */}
           {(type === 'demo' || type === 'fee-quote') && (
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Preferred Time
               </label>
               <select
                 {...register('preferredTime')}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                className="input-field"
               >
                 <option value="">Select preferred time</option>
                 <option value="morning">Morning (9 AM - 12 PM)</option>
@@ -307,13 +307,13 @@ export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
 
           {/* Message */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-neutral-700 mb-2">
               Message *
             </label>
             <textarea
               {...register('message')}
               rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 resize-none"
+              className="input-field resize-none"
               placeholder={
                 type === 'demo'
                   ? "Tell us about your child's current academic level and any specific areas they need help with..."

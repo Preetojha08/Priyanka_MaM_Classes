@@ -47,10 +47,10 @@ export function StatCounter({ label, value, index }: StatCounterProps) {
       viewport={{ once: true }}
       className="text-center"
     >
-      <div className="text-4xl md:text-5xl font-display font-bold text-primary mb-2">
+      <div className="stat-number">
         {count}{suffix}
       </div>
-      <div className="text-lg text-gray-600 font-medium">
+      <div className="text-lg text-white/90 font-medium mt-2">
         {label}
       </div>
     </motion.div>
