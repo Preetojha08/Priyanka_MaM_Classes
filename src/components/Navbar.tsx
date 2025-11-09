@@ -5,10 +5,8 @@ import { Menu, X } from 'lucide-react'
 export function Navbar() {
   const navItems = [
     { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Classes', path: '/classes' },
-    { name: 'Fees', path: '/fees' },
-    { name: 'Demo', path: '/demo' },
+    { name: 'Programs', path: '/programs' },
+    { name: 'Plans & Demo', path: '/plans' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'Contact', path: '/contact' },
   ]
@@ -153,7 +151,7 @@ export function Navbar() {
 
         <div className="hidden lg:flex items-center">
           <Link
-            to="/demo"
+            to="/plans#trial"
             className="inline-flex items-center justify-center rounded-full bg-[#C62828] px-5 py-2 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#B71C1C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
           >
             Book Demo
@@ -203,7 +201,7 @@ export function Navbar() {
                 )
               })}
               <Link
-                to="/demo"
+                to="/plans#trial"
                 onClick={() => setIsOpen(false)}
                 className="mt-2 inline-flex items-center justify-center rounded-full bg-[#C62828] px-5 py-3 text-base font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#B71C1C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >

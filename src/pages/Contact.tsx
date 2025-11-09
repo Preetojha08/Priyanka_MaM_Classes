@@ -47,7 +47,7 @@ export function Contact() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#FFF9F2] via-white to-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(198,40,40,0.12),_transparent_55%)] pointer-events-none" />
-        <div className="relative mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-24 text-center lg:px-10">
+        <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-4 py-24 text-center sm:px-6 lg:px-8">
           <span className="mx-auto inline-flex items-center rounded-full border border-[#C62828]/20 bg-white/80 px-5 py-1 text-sm font-semibold uppercase tracking-[0.35em] text-[#C62828]">
             Contact Spark & Shine
           </span>
@@ -63,7 +63,7 @@ export function Contact() {
 
       {/* Highlights */}
       <Section background="white">
-        <div className="flex flex-col gap-10">
+        <div className="section-spacing flex flex-col gap-10">
           <SectionHeading
             title="Connect your way"
             subtitle="Pick the channel that suits you best. We respond within one business day."
@@ -73,9 +73,9 @@ export function Contact() {
               <a
                 key={item.title}
                 href={item.href}
-                className="rounded-3xl border border-[#F3F4F6] bg-white p-6 shadow-[0_20px_40px_rgba(31,41,55,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(31,41,55,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                className="rounded-3xl border border-slate-100 bg-white/95 p-6 shadow-[0_20px_45px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
-                <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C62828]/10 text-[#C62828]">
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-50 text-[#C62828]">
                   <item.icon className="h-6 w-6" />
                 </span>
                 <h3 className="mt-4 text-lg font-semibold text-[#1F2937]">{item.title}</h3>
@@ -89,8 +89,8 @@ export function Contact() {
 
       {/* Visit & Map */}
       <Section background="paper">
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
-          <div className="rounded-3xl border border-white/70 bg-white/90 p-8 shadow-[0_24px_48px_rgba(31,41,55,0.08)]">
+        <div className="section-spacing grid gap-8 lg:grid-cols-[1.1fr_1fr]">
+          <div className="rounded-3xl border border-slate-100 bg-white/95 p-8 shadow-[0_24px_50px_rgba(15,23,42,0.1)]">
             <SectionHeading
               title="Drop by the studio"
               subtitle="Book a short visit to observe a class or speak with a mentor."
@@ -98,7 +98,7 @@ export function Contact() {
             />
             <div className="mt-8 space-y-6 text-sm text-[#4B5563]">
               {visitDetails.map((detail) => (
-                <div key={detail.title} className="flex items-start gap-3 rounded-2xl bg-[#FFF2EF] p-4">
+                <div key={detail.title} className="flex items-start gap-3 rounded-2xl bg-amber-50/80 p-4">
                   <detail.icon className="mt-1 h-5 w-5 text-[#C62828]" />
                   <div>
                     <p className="text-sm font-semibold text-[#1F2937]">{detail.title}</p>
@@ -111,7 +111,7 @@ export function Contact() {
               </p>
             </div>
           </div>
-          <div className="flex flex-col rounded-3xl border border-white/70 bg-white/90 shadow-[0_24px_48px_rgba(31,41,55,0.08)]">
+          <div className="flex flex-col rounded-3xl border border-slate-100 bg-white shadow-[0_24px_50px_rgba(15,23,42,0.08)]">
             <iframe
               title="Spark & Shine Tuition Classes on Google Maps"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3716.7222251533275!2d72.998!3d21.6406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDM4JzI2LjIiTiA3MsKwNTknNTIuOCJF!5e0!3m2!1sen!2sin!4v1700000000000"
@@ -139,7 +139,7 @@ export function Contact() {
 
       {/* Form */}
       <Section background="white">
-        <div className="flex flex-col gap-10">
+        <div className="section-spacing flex flex-col gap-10">
           <SectionHeading
             title="Tell us about your child"
             subtitle="Share current grade, preferred subjects, and goalposts. We reply within one business day."
@@ -154,7 +154,7 @@ export function Contact() {
 
       {/* CTA */}
       <section className="bg-gradient-to-br from-[#C62828] via-[#B71C1C] to-[#8C1B1B] py-16 text-white">
-        <div className="mx-auto flex max-w-[1100px] flex-col items-center gap-6 px-6 text-center lg:px-10">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 px-4 text-center sm:px-6 lg:px-8">
           <Sparkles className="h-8 w-8 text-white/80" />
           <h2 className="text-3xl font-display font-semibold">Prefer a quick callback?</h2>
           <p className="max-w-2xl text-sm text-white/85">

@@ -4,10 +4,9 @@ import config from '../site.config'
 
 export function Footer() {
   const quickLinks = [
-    { name: 'About Us', path: '/about' },
-    { name: 'Classes & Curriculum', path: '/classes' },
-    { name: 'Fees & Plans', path: '/fees' },
-    { name: 'Book Demo Class', path: '/demo' },
+    { name: 'Home', path: '/' },
+    { name: 'Programs', path: '/programs' },
+    { name: 'Plans & Demo', path: '/plans' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'Contact', path: '/contact' },
   ]
@@ -136,7 +135,7 @@ export function Footer() {
                       <span>{config.hours}</span>
                     </div>
                     <Link
-                      to="/demo"
+                      to="/plans#trial"
                       className="inline-flex items-center justify-center rounded-full bg-white/10 px-4 py-2 text-sm font-semibold tracking-wide text-white transition-all duration-200 hover:bg-white/20 hover:text-white"
                     >
                       Book a Free Demo

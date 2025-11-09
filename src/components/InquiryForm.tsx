@@ -25,9 +25,13 @@ type InquiryFormData = z.infer<typeof inquirySchema>
 interface InquiryFormProps {
   type: 'contact' | 'demo' | 'fee-quote'
   onSuccess?: () => void
+  title?: string
+  description?: string
+  className?: string
+  headingAlign?: 'center' | 'left'
 }
 
-export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
+export function InquiryForm({ type, onSuccess, title, description, className, headingAlign = 'center' }: InquiryFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
@@ -112,20 +116,25 @@ export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
     }
   }
 
+  const resolvedTitle = title ?? getFormTitle()
+  const resolvedDescription = description ?? getFormDescription()
+  const containerClass = className ?? 'max-w-2xl mx-auto'
+  const headingClass = headingAlign === 'left' ? 'text-left' : 'text-center'
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="max-w-2xl mx-auto"
+      className={containerClass}
     >
       <div className="card">
-        <div className="text-center mb-8">
+        <div className={`${headingClass} mb-8`}>
           <h3 className="text-2xl font-display font-bold text-ink mb-2">
-            {getFormTitle()}
+            {resolvedTitle}
           </h3>
           <p className="text-neutral-600">
-            {getFormDescription()}
+            {resolvedDescription}
           </p>
         </div>
 
