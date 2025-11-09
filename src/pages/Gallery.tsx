@@ -200,84 +200,88 @@ export function Gallery() {
   return (
     <div className="bg-bg text-[#1F2937]">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#FFF9F2] via-white to-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(198,40,40,0.12),_transparent_55%)] pointer-events-none" />
-        <div className="relative mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-24 text-center lg:px-10">
-          <span className="mx-auto inline-flex items-center rounded-full border border-[#C62828]/20 bg-white/80 px-5 py-1 text-sm font-semibold uppercase tracking-[0.35em] text-[#C62828]">
+      <section className="relative overflow-hidden bg-gradient-to-b from-rose-50 via-white to-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(198,40,40,0.08),_transparent_60%)]" aria-hidden="true" />
+        <div className="relative mx-auto flex max-w-7xl flex-col gap-6 px-4 py-20 text-center sm:px-6 md:py-24 lg:px-8">
+          <span className="mx-auto inline-flex items-center rounded-full border border-rose-200 bg-white/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-rose-700">
             Gallery
           </span>
-          <h1 className="mx-auto max-w-4xl text-4xl font-display font-semibold text-[#1F2937] sm:text-5xl">
+          <h1 className="mx-auto max-w-3xl text-4xl font-display font-semibold tracking-tight text-[#111827] md:text-5xl">
             A peek into Spark & Shine moments
           </h1>
-          <p className="mx-auto max-w-3xl text-lg text-[#4B5563]">
-            Each frame captures how we blend structure with warmth — from focused concept labs to celebration evenings
-            with families.
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-neutral-600">
+            Each frame captures how we blend structure with warmth — from focused concept labs to celebration evenings with families.
           </p>
         </div>
+        <div className="border-t border-black/5" aria-hidden="true" />
       </section>
 
       {/* Filters */}
       <Section background="white">
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-8">
           <SectionHeading
             title="Browse by theme"
             subtitle="Select a category to explore highlights of our learning community."
           />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                type="button"
-                onClick={() => setActiveCategory(category.id)}
-                aria-pressed={activeCategory === category.id}
-                className={`flex flex-col items-start gap-3 rounded-3xl border p-6 text-left transition-all duration-300 ${
-                  activeCategory === category.id
-                    ? 'border-[#C62828] bg-[#FFF2EF] shadow-[0_20px_44px_rgba(198,40,40,0.16)]'
-                    : 'border-[#F3F4F6] bg-white hover:-translate-y-1 hover:shadow-[0_20px_44px_rgba(31,41,55,0.1)]'
-                }`}
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#C62828]/10 text-[#C62828]">
-                  <category.icon className="h-5 w-5" />
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-[#1F2937]">{category.label}</p>
-                  <p className="mt-1 text-xs text-[#4B5563]">{category.description}</p>
-                </div>
-              </button>
-            ))}
+          <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+            {categories.map((category) => {
+              const isActive = activeCategory === category.id
+              return (
+                <button
+                  key={category.id}
+                  type="button"
+                  onClick={() => setActiveCategory(category.id)}
+                  aria-pressed={isActive}
+                  className={`snap-start whitespace-nowrap rounded-full border px-5 py-2 text-sm font-semibold transition-all duration-300 ${
+                    isActive
+                      ? 'border-transparent bg-gradient-to-r from-rose-600 to-rose-700 text-white shadow-[0_12px_30px_rgba(190,18,60,0.25)]'
+                      : 'border-rose-200 text-rose-700 hover:bg-rose-50 hover:text-rose-800'
+                  }`}
+                >
+                  {category.label}
+                </button>
+              )
+            })}
           </div>
+          <p className="text-center text-sm text-neutral-500">Tap a theme to instantly filter the gallery.</p>
         </div>
       </Section>
 
       {/* Grid */}
       <Section background="paper">
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-8">
           <SectionHeading
             title="Snapshots from our studio"
             subtitle="Tap an image to open the lightbox and navigate with your keyboard."
           />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredItems.map((item, index) => (
-              <button
-                key={item.id}
-                type="button"
-                className="group relative overflow-hidden rounded-3xl border border-white/70 bg-white text-left shadow-[0_20px_44px_rgba(31,41,55,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-                onClick={() => setLightboxIndex(index)}
-              >
-                <img
-                  src={item.src}
-                  srcSet={item.srcSet}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  alt={`${item.title} — ${item.description}`}
-                  loading="lazy"
-                  className="h-60 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="space-y-1 px-5 py-4">
-                  <p className="text-sm font-semibold text-[#1F2937]">{item.title}</p>
-                  <p className="text-xs text-[#4B5563]">{item.description}</p>
-                </div>
-              </button>
-            ))}
+          <div className="columns-1 gap-6 space-y-6 sm:columns-2 lg:columns-3">
+            {filteredItems.map((item, index) => {
+              const description = `${item.title} — ${item.description}`
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  style={{ breakInside: 'avoid' }}
+                  className="group relative w-full overflow-hidden rounded-2xl bg-white text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-200 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                  onClick={() => setLightboxIndex(index)}
+                >
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
+                    <img
+                      src={item.src}
+                      srcSet={item.srcSet}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      alt={description}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent px-4 py-4 text-white">
+                      <p className="text-sm font-semibold">{item.title}</p>
+                      <p className="text-xs text-white/80">{item.description}</p>
+                    </div>
+                  </div>
+                </button>
+              )
+            })}
           </div>
         </div>
       </Section>
@@ -285,27 +289,27 @@ export function Gallery() {
       {/* Lightbox */}
       {lightboxIndex !== null && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm transition-opacity duration-300"
           role="dialog"
           aria-modal="true"
           aria-label="Gallery lightbox"
         >
           <button
             ref={closeButtonRef}
-            className="absolute right-6 top-6 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-[#1F2937] transition hover:bg-white"
+            className="absolute right-6 top-6 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-[#1F2937] shadow-lg transition hover:bg-white"
             onClick={() => setLightboxIndex(null)}
           >
             <X className="h-5 w-5" aria-hidden="true" />
             <span className="sr-only">Close lightbox</span>
           </button>
           <button
-            className="absolute left-6 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-[#1F2937] transition hover:bg-white"
+            className="absolute left-6 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-[#1F2937] shadow-lg transition hover:bg-white"
             onClick={() => setLightboxIndex((prev) => (prev === null ? prev : (prev - 1 + filteredItems.length) % filteredItems.length))}
           >
             <ChevronLeft className="h-5 w-5" aria-hidden="true" />
             <span className="sr-only">Previous image</span>
           </button>
-          <figure className="mx-6 max-w-4xl rounded-3xl bg-white/95 p-4 text-center shadow-[0_30px_60px_rgba(0,0,0,0.35)]">
+          <figure className="mx-6 max-w-4xl rounded-3xl bg-white/95 p-4 text-center shadow-[0_30px_60px_rgba(0,0,0,0.35)] transition-all duration-300">
             <img
               src={filteredItems[lightboxIndex].src}
               srcSet={filteredItems[lightboxIndex].srcSet}
@@ -318,29 +322,34 @@ export function Gallery() {
             </figcaption>
           </figure>
           <button
-            className="absolute right-6 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-[#1F2937] transition hover:bg-white"
+            className="absolute right-6 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-[#1F2937] shadow-lg transition hover:bg-white"
             onClick={() => setLightboxIndex((prev) => (prev === null ? prev : (prev + 1) % filteredItems.length))}
           >
             <ChevronRight className="h-5 w-5" aria-hidden="true" />
             <span className="sr-only">Next image</span>
           </button>
         </div>
-      )}
+
+      
+     )}
 
       {/* Consent */}
-      <Section background="white">
-        <div className="rounded-3xl border border-[#F3F4F6] bg-white/90 p-8 text-center shadow-[0_20px_44px_rgba(31,41,55,0.08)]">
-          <h2 className="text-2xl font-display font-semibold text-[#1F2937]">Image consent & privacy</h2>
-          <p className="mt-3 text-sm leading-relaxed text-[#4B5563]">
-            Every photograph shared here is published with explicit consent from families. Want an image taken down?
-            Write to us at{' '}
-            <a href="mailto:sparkandshine.classes@gmail.com" className="text-[#C62828] underline">
-              sparkandshine.classes@gmail.com
-            </a>{' '}
-            and we’ll action it within 48 hours.
-          </p>
+      <div className="bg-amber-50 py-12">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-2xl bg-white p-8 text-center shadow-[0_18px_45px_rgba(15,23,42,0.08)]">
+            <h3 className="text-xl font-semibold text-slate-900">Image consent & privacy</h3>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              Every photograph is published with explicit consent from families. Want an image taken down? Email us at
+              <a href="mailto:sparkandshine.classes@gmail.com" className="text-rose-600 underline decoration-rose-300 decoration-2 ml-1">
+                sparkandshine.classes@gmail.com
+              </a>
+              — we’ll act within 48 hours.
+            </p>
+          </div>
         </div>
-      </Section>
+      </div>
+
+      <div className="border-t border-black/5" aria-hidden="true" />
     </div>
   )
 }

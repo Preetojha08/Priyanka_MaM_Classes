@@ -73,6 +73,10 @@
   .btn-outline:hover {
     @apply shadow-lg -translate-y-1;
   }
+
+  .input-field {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-200 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
+  }
   
   /* Magical Card Styles */
   .card {

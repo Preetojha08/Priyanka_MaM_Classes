@@ -3,7 +3,7 @@ import { SectionHeading } from '../components/SectionHeading'
 import { PlanCard, PlanCardData } from '../components/PlanCard'
 import { FaqAccordion, FaqItem } from '../components/FaqAccordion'
 import { InquiryForm } from '../components/InquiryForm'
-import { ShieldCheck, PiggyBank, Gift, CreditCard, MessageCircle, Phone } from 'lucide-react'
+import { ShieldCheck, PiggyBank, Gift, CreditCard, MessageCircle, Phone, CheckCircle2 } from 'lucide-react'
 import config from '../site.config'
 
 const featureChips = ['No registration charges', 'Sibling advantage available', 'Free demo before enrollment']
@@ -116,6 +116,10 @@ const faqs: FaqItem[] = [
 ]
 
 export function Plans() {
+  const scrollToTrialForm = () => {
+    document.getElementById('trialForm')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <div className="bg-bg text-slate-900">
       {/* Hero */}
@@ -145,7 +149,7 @@ export function Plans() {
       </section>
 
       {/* Plans + help panel */}
-      <Section background="white">
+      <Section background="white" className="py-16 md:py-20">
         <div className="section-spacing">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(320px,1fr)]">
             <div className="grid gap-6 md:grid-cols-2">
@@ -157,15 +161,16 @@ export function Plans() {
               type="fee-quote"
               title="Need help choosing?"
               description="Share current grade, subjects, and scheduling notes — we’ll recommend the best-fit plan."
-              className="w-full h-full"
+              className="flex h-full w-full"
               headingAlign="left"
+              cardClassName="flex h-full flex-col rounded-2xl border border-black/5 bg-rose-50/80 p-6 sm:p-7 shadow-[0_15px_35px_rgba(15,23,42,0.12)]"
             />
           </div>
         </div>
       </Section>
 
       {/* Clarity block */}
-      <Section background="paper">
+      <Section background="paper" className="py-16 md:py-20">
         <div className="section-spacing">
           <SectionHeading
             title="Pricing with absolute clarity"
@@ -189,7 +194,7 @@ export function Plans() {
       </Section>
 
       {/* FAQ */}
-      <Section background="white">
+      <Section background="white" className="py-16 md:py-20">
         <div className="section-spacing">
           <SectionHeading
             title="Plans, payments, and demos — answered"
@@ -202,51 +207,61 @@ export function Plans() {
       </Section>
 
       {/* Trial */}
-      <div id="trial">
-        <Section background="paper" className="scroll-mt-24">
-          <div className="section-spacing">
-            <div className="rounded-3xl border border-white/80 bg-white/95 p-8 shadow-[0_24px_50px_rgba(15,23,42,0.1)]">
-            <div className="flex flex-col gap-6 text-center">
-              <span className="mx-auto inline-flex items-center rounded-full border border-[#C62828]/30 px-5 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-[#C62828]">
+      <section id="trial" className="relative z-10 bg-amber-50 py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-10 rounded-2xl border border-black/5 bg-white p-6 shadow-[0_18px_45px_rgba(15,23,42,0.08)] sm:p-8 lg:grid-cols-2 lg:p-12">
+            <div className="space-y-6">
+              <span className="inline-flex items-center rounded-full border border-rose-200 bg-rose-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-rose-700">
                 Demo / Trial
               </span>
-              <h2 className="text-3xl font-display font-semibold text-slate-900">
+              <h2 className="text-3xl font-display font-semibold tracking-tight text-slate-900 md:text-4xl">
                 Experience a classroom before committing.
               </h2>
-              <p className="text-sm text-slate-600">
-                A 30-minute small-group demo mirrors the real batch flow. We end with a personalised action plan you can
-                implement immediately.
+              <p className="text-base leading-relaxed text-slate-600">
+                Join a 30-minute small-group session that mirrors our real batch flow. Leave with a personalised action plan you can put into practice immediately.
               </p>
-              <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                 <a
                   href={config.social.whatsapp}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-rose-200 px-5 py-3 text-sm font-semibold text-rose-700 transition-colors duration-200 hover:border-rose-300 hover:bg-rose-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-200 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:w-auto"
                 >
                   <MessageCircle className="h-4 w-4" />
                   Chat on WhatsApp
                 </a>
-                <a
-                  href="#trial-form"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#C62828] px-6 py-3 text-sm font-semibold text-[#C62828] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#C62828] hover:text-white"
+                <button
+                  type="button"
+                  onClick={scrollToTrialForm}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-rose-600 to-rose-700 px-6 py-3 text-sm font-semibold text-white shadow-cta transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-200 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:w-auto"
                 >
                   <Phone className="h-4 w-4" />
                   Request trial slot
-                </a>
+                </button>
               </div>
+              <ul className="grid gap-3 text-sm text-slate-600 sm:grid-cols-2">
+                {['Open slots released every Monday', 'In-centre & hybrid options available'].map((item) => (
+                  <li key={item} className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-rose-600" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-              <div id="trial-form" className="mt-10">
-                <InquiryForm
-                  type="demo"
-                  title="Request a trial slot"
-                  description="Share the grade, priority subjects, and preferred timing. Our coordinator confirms within one business day."
-                />
-              </div>
+            <div id="trialForm">
+              <InquiryForm
+                type="demo"
+                title="Request a trial slot"
+                description="Share the grade, priority subjects, and preferred timing. Our coordinator confirms within one business day."
+                className="w-full"
+                headingAlign="left"
+                cardClassName="p-0 bg-transparent shadow-none border-none"
+              />
             </div>
           </div>
-        </Section>
-      </div>
+        </div>
+        <div className="mx-auto mt-12 h-px max-w-7xl bg-black/5" aria-hidden="true" />
+      </section>
     </div>
   )
 }

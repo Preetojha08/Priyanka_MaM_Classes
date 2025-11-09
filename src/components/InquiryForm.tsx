@@ -29,9 +29,18 @@ interface InquiryFormProps {
   description?: string
   className?: string
   headingAlign?: 'center' | 'left'
+  cardClassName?: string
 }
 
-export function InquiryForm({ type, onSuccess, title, description, className, headingAlign = 'center' }: InquiryFormProps) {
+export function InquiryForm({
+  type,
+  onSuccess,
+  title,
+  description,
+  className,
+  headingAlign = 'center',
+  cardClassName,
+}: InquiryFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
@@ -128,7 +137,7 @@ export function InquiryForm({ type, onSuccess, title, description, className, he
       transition={{ duration: 0.6 }}
       className={containerClass}
     >
-      <div className="card">
+      <div className={cardClassName ?? 'card'}>
         <div className={`${headingClass} mb-8`}>
           <h3 className="text-2xl font-display font-bold text-ink mb-2">
             {resolvedTitle}

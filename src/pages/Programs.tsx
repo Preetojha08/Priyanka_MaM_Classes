@@ -2,18 +2,7 @@ import { Section } from '../components/ui/Section'
 import { SectionHeading } from '../components/SectionHeading'
 import { TrackCard, TrackCardData } from '../components/TrackCard'
 import { StatStrip } from '../components/StatStrip'
-import { Link } from 'react-router-dom'
-import {
-  PenTool,
-  Presentation,
-  Repeat,
-  Sparkles,
-  Layers,
-  BarChart2,
-  HeartHandshake,
-  Users,
-  CheckCircle2
-} from 'lucide-react'
+import { PenTool, Presentation, Repeat, Sparkles, Layers, BarChart2, HeartHandshake, Users } from 'lucide-react'
 
 const featureChips = ['CBSE & GSEB mapped', 'Doubt hotline', 'Analytics-led feedback']
 
@@ -73,7 +62,7 @@ const tracks: TrackCardData[] = [
       'Summarises experiments with evidence',
       'Builds arguments backed by data'
     ],
-    weeklyFlow: '5 sessions/week · 75 mins + Saturday review bloc',
+    weeklyFlow: '5 sessions/week · 75 mins + Saturday review block',
     ctaHref: '/contact',
     ctaLabel: 'Talk to admissions'
   },
@@ -183,22 +172,22 @@ export function Programs() {
       <section className="relative overflow-hidden bg-gradient-to-br from-[#FFF9F2] via-white to-white">
         <div className="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-[#FCD9D4]/50 to-transparent blur-3xl" />
         <div className="absolute -bottom-32 left-12 h-64 w-64 rounded-full bg-rose-200/40 blur-3xl" />
-        <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-4 py-24 text-center sm:px-6 lg:px-8">
-          <span className="mx-auto inline-flex items-center rounded-full border border-[#C62828]/20 bg-white/80 px-6 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-[#C62828]">
+        <div className="relative mx-auto flex max-w-7xl flex-col items-center px-4 py-20 text-center sm:px-6 md:py-24 lg:px-8">
+          <span className="inline-flex items-center rounded-full border border-rose-100 bg-rose-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-rose-700">
             Programs
           </span>
-          <h1 className="mx-auto max-w-4xl text-4xl font-display font-semibold text-slate-900 sm:text-5xl">
+          <h1 className="mt-6 max-w-3xl text-3xl font-display font-extrabold text-slate-900 md:text-4xl lg:text-5xl">
             Structured batches for every stage — with human-centered mentorship.
           </h1>
-          <p className="mx-auto max-w-3xl text-lg text-slate-600">
-            Every track pairs board-mapped rigor with warm mentors, so your child builds confidence, consistency, and
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-600 md:text-lg">
+            Every track pairs board-mapped rigour with warm mentors, so your child builds confidence, consistency, and
             visible progress week after week.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             {featureChips.map((chip) => (
               <span
                 key={chip}
-                className="inline-flex items-center rounded-full bg-white px-5 py-2 text-sm font-semibold text-[#C62828] shadow-[0_10px_25px_rgba(198,40,40,0.12)]"
+                className="inline-flex items-center rounded-full border border-rose-100 bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700"
               >
                 {chip}
               </span>
@@ -214,7 +203,7 @@ export function Programs() {
             title="Tracks for every milestone"
             subtitle="Choose the batch that mirrors your child’s current grade, goals, and pace."
           />
-          <div className="mt-12 grid gap-8 md:grid-cols-2">
+          <div className="mt-12 grid gap-6 md:gap-8 md:grid-cols-2">
             {tracks.map((track) => (
               <TrackCard key={track.id} track={track} />
             ))}
@@ -229,13 +218,13 @@ export function Programs() {
             title="How we teach"
             subtitle="A simple rhythm keeps learners anchored while leaving room for curiosity."
           />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-12 grid gap-6 md:gap-8 md:grid-cols-3">
             {learningRhythm.map((item) => (
               <div
                 key={item.title}
-                className="rounded-3xl border border-white/70 bg-white p-6 text-center shadow-[0_20px_45px_rgba(15,23,42,0.08)]"
+                className="flex h-full flex-col items-center rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-[0_10px_30px_rgba(16,24,40,0.06)] md:p-8"
               >
-                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-50 text-[#C62828]">
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-rose-100 bg-rose-50 text-rose-600">
                   <item.icon className="h-6 w-6" />
                 </span>
                 <h3 className="mt-4 text-xl font-display font-semibold text-slate-900">{item.title}</h3>
@@ -253,17 +242,17 @@ export function Programs() {
             title="Beyond the timetable"
             subtitle="Families stay in the loop with the same care we bring to class."
           />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-12 grid gap-6 md:gap-8 md:grid-cols-3">
             {beyondTimetable.map((item) => (
               <div
                 key={item.title}
-                className="rounded-3xl border border-slate-100 bg-white p-6 shadow-[0_20px_45px_rgba(15,23,42,0.08)]"
+                className="flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-[0_10px_30px_rgba(16,24,40,0.06)] md:p-8"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 text-[#C62828]">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-rose-100 bg-amber-50 text-rose-600">
                   <item.icon className="h-6 w-6" />
                 </span>
                 <h3 className="mt-4 text-lg font-semibold text-slate-900">{item.title}</h3>
-                <p className="mt-2 text-sm text-slate-600">{item.description}</p>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.description}</p>
               </div>
             ))}
           </div>
@@ -278,14 +267,14 @@ export function Programs() {
               title="Mentors who stay invested"
               subtitle="Two people leading every cohort, blending academic rigor with pastoral care."
             />
-            <div className="mt-12 grid gap-6 md:grid-cols-2">
+            <div className="mt-12 grid gap-6 md:gap-8 md:grid-cols-2">
               {mentorTeam.map((mentor) => (
                 <div
                   key={mentor.name}
-                  className="rounded-3xl border border-white/80 bg-white/95 p-6 shadow-[0_20px_45px_rgba(15,23,42,0.08)]"
+                  className="flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-[0_10px_30px_rgba(16,24,40,0.06)] md:p-8"
                 >
                   <div className="flex items-center gap-4">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-50 text-[#C62828]">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-rose-100 bg-rose-50 text-rose-600">
                       <mentor.icon className="h-6 w-6" />
                     </span>
                     <div>
@@ -293,12 +282,12 @@ export function Programs() {
                       <p className="text-sm text-slate-500">{mentor.role}</p>
                     </div>
                   </div>
-                  <p className="mt-4 text-sm text-slate-600">{mentor.bio}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-slate-600">{mentor.bio}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {mentor.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-[#B45309]"
+                        className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-[#B45309]"
                       >
                         {tag}
                       </span>
@@ -320,15 +309,17 @@ export function Programs() {
             title="Milestones that matter"
             subtitle="A quick view of how Spark & Shine evolved for today’s learners."
           />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-12 grid gap-6 md:gap-8 md:grid-cols-3">
             {timeline.map((item) => (
               <div
                 key={item.year}
-                className="rounded-3xl border border-slate-100 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.08)]"
+                className="flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-[0_10px_30px_rgba(16,24,40,0.06)] md:p-8"
               >
-                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#C62828]">{item.year}</p>
-                <h3 className="mt-3 text-lg font-display font-semibold text-slate-900">{item.title}</h3>
-                <p className="mt-2 text-sm text-slate-600">{item.copy}</p>
+                <p className="inline-flex w-fit rounded-full border border-rose-100 bg-rose-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-rose-700">
+                  {item.year}
+                </p>
+                <h3 className="mt-4 text-lg font-display font-semibold text-slate-900">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.copy}</p>
               </div>
             ))}
           </div>
@@ -336,17 +327,13 @@ export function Programs() {
       </Section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#C62828] via-[#B71C1C] to-[#8C1B1B] py-16 text-white">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-4 left-12 h-40 w-40 rounded-full bg-white/20 blur-3xl" />
-          <div className="absolute bottom-0 right-10 h-48 w-48 rounded-full bg-amber-200/30 blur-[120px]" />
-        </div>
-        <div className="relative mx-auto flex max-w-4xl flex-col gap-6 px-4 text-center sm:px-6 lg:px-8">
-          <span className="mx-auto inline-flex items-center rounded-full border border-white/30 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/80">
+      {/* <section className="bg-gradient-to-r from-rose-500 via-rose-500 to-rose-600 py-16 text-white md:py-20">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 px-4 text-center sm:px-6 lg:px-8">
+          <span className="inline-flex items-center rounded-full border border-white/40 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-white/80">
             Next steps
           </span>
-          <h2 className="text-3xl font-display font-semibold sm:text-4xl">Ready to explore a batch?</h2>
-          <ul className="mx-auto flex max-w-xl flex-col gap-3 text-sm text-white/85">
+          <h2 className="text-3xl font-display font-extrabold sm:text-4xl">Ready to explore a batch?</h2>
+          <ul className="flex w-full max-w-xl flex-col gap-2 text-sm text-white/85">
             {['Open slots released every Monday', 'In-centre and hybrid options available'].map((point) => (
               <li key={point} className="flex items-center justify-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-white/80" />
@@ -354,22 +341,23 @@ export function Programs() {
               </li>
             ))}
           </ul>
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="flex w-full flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               to="/plans#trial"
-              className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#C62828] transition-all duration-200 hover:-translate-y-0.5"
+              className="btn-primary w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:w-auto"
             >
               Book a free demo
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center rounded-full border border-white/60 px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10"
+              className="inline-flex w-full items-center justify-center rounded-full border border-white/60 px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:w-auto"
             >
               Talk to admissions
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   )
 }
+ 8
