@@ -1,297 +1,323 @@
+import { useState } from 'react'
+import {
+  Wallet,
+  Crown,
+  CalendarClock,
+  Gift,
+  Check,
+  PiggyBank,
+  ShieldCheck,
+  CreditCard,
+  MessageCircle
+} from 'lucide-react'
+import { Section } from '../components/ui/Section'
 import { SectionHeading } from '../components/SectionHeading'
 import { InquiryForm } from '../components/InquiryForm'
-import { CheckCircle, Users, Clock, Star, MessageCircle } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import config from '../site.config'
 
-const feePlans = [
+const pricingTiers = [
   {
-    name: "Per Subject",
-    description: "Pay only for the subjects your child needs help with",
-    features: [
-      "Individual subject focus",
-      "Flexible scheduling",
-      "Personalized attention",
-      "Regular progress tracking"
+    name: 'Monthly Focus',
+    headline: 'Ideal for subject-specific boosters and flexible schedules.',
+    price: '₹2,200',
+    unit: 'per subject · billed monthly',
+    highlights: [
+      '2 concept labs + 1 revision clinic every week',
+      'Complimentary doubt hotline (2 calls/month)',
+      'Upgrade any time with zero switching fee'
     ],
-    price: "Starting from ₹800/month",
-    popular: false
+    badge: 'Most Flexible',
+    icon: CalendarClock
   },
   {
-    name: "Combo Package",
-    description: "Best value for multiple subjects",
-    features: [
-      "2-3 subjects combined",
-      "Integrated learning approach",
-      "Better time management",
-      "Discounted rates"
+    name: 'Quarterly Momentum',
+    headline: 'Perfect for multi-subject continuity and measurable progress.',
+    price: '₹18,900',
+    unit: 'for any 3 subjects · billed quarterly',
+    highlights: [
+      'Learning roadmap & analytics dashboard access',
+      'Mock test library + monthly parent strategy meet',
+      'Saves 8% versus paying monthly'
     ],
-    price: "Starting from ₹1,500/month",
-    popular: true
+    badge: 'Parent Favourite',
+    icon: Wallet,
+    featured: true
   },
   {
-    name: "Full Package",
-    description: "Complete academic support for all subjects",
-    features: [
-      "All 5 subjects included",
-      "Comprehensive coverage",
-      "Exam preparation",
-      "Maximum savings"
+    name: 'Annual Confidence',
+    headline: 'Board-year support with holistic mentoring and exam labs.',
+    price: '₹68,000',
+    unit: 'all core subjects · billed annually',
+    highlights: [
+      'Priority mentoring slots + weekend masterclasses',
+      'Unlimited doubt-clearing pods and exam writing labs',
+      'Saves 15% + sibling add-on at 20% discount'
     ],
-    price: "Starting from ₹2,500/month",
-    popular: false
+    badge: 'Best Value',
+    icon: Crown
   },
   {
-    name: "Sibling Discount",
-    description: "Special rates for families with multiple children",
-    features: [
-      "Up to 20% discount",
-      "Flexible payment options",
-      "Family-friendly scheduling",
-      "Shared resources"
+    name: 'Trial Starter',
+    headline: 'Experience our classroom culture before committing.',
+    price: '₹1,200',
+    unit: 'two 60-minute sessions',
+    highlights: [
+      'Diagnostic review + personalised action plan',
+      'Parent debrief call with learning specialist',
+      'Fees adjusted if you enrol within 10 days'
     ],
-    price: "Up to 20% off",
-    popular: false
+    icon: Gift
   }
 ]
 
-const benefits = [
+const assurancePoints = [
   {
-    icon: Users,
-    title: "Small Batch Sizes",
-    description: "Maximum 6 students per batch ensures individual attention"
+    title: 'Transparent & Tax-inclusive',
+    description: 'No admission charges or material fees — everything is bundled within the plan you choose.',
+    icon: ShieldCheck
   },
   {
-    icon: Clock,
-    title: "Flexible Timing",
-    description: "Choose timings that work best for your family schedule"
+    title: 'Pause Without Penalty',
+    description: 'Travelling? Exams near? Pause classes for up to two weeks each term without losing your slot.',
+    icon: PiggyBank
   },
   {
-    icon: Star,
-    title: "Quality Teaching",
-    description: "Experienced teachers with proven track record"
+    title: 'Sibling Advantage',
+    description: 'Second enrolment gets 12% off, and subsequent siblings enjoy 20% off prevailing plans.',
+    icon: Gift
   },
   {
-    icon: CheckCircle,
-    title: "No Hidden Charges",
-    description: "Transparent pricing with no surprise fees"
+    title: 'Simple Payment Windows',
+    description: 'UPI · net banking · standing instructions supported with receipts issued instantly.',
+    icon: CreditCard
+  }
+]
+
+const faqs = [
+  {
+    question: 'Can we mix CBSE and GSEB subjects within the same plan?',
+    answer:
+      'Absolutely. Many learners study a mix of board patterns. Our mentors adapt the timetable and resources so the flow stays consistent across subjects.'
+  },
+  {
+    question: 'What happens if my child misses a class?',
+    answer:
+      'Drop us a quick WhatsApp note. We log an asynchronous recap and schedule a micro make-up session so your child rejoins the batch without anxiety.'
+  },
+  {
+    question: 'Do you offer instalments for the annual plan?',
+    answer:
+      'Yes. Annual Confidence can be split into four equal instalments across the year with no additional cost or paperwork.'
+  },
+  {
+    question: 'Is the trial amount adjusted if we continue?',
+    answer:
+      'The full trial fee is credited towards whichever plan you select within ten calendar days of the trial completion.'
   }
 ]
 
 export function Fees() {
+  const [openFaq, setOpenFaq] = useState<number | null>(0)
+
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-paper via-white to-gray-50">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-ink mb-6">
-              Flexible Fee Plans
-            </h1>
-            <p className="text-xl text-gray-600 leading-relaxed mb-8">
-              {config.feesNote} We believe quality education should be accessible to all families.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <span className="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold">
-                Flexible Payment Options
+    <div className="bg-bg text-[#1F2937]">
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#FFF9F2] via-white to-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(198,40,40,0.12),_transparent_55%)] pointer-events-none" />
+        <div className="relative mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-24 text-center lg:px-10">
+          <span className="mx-auto inline-flex items-center rounded-full border border-[#C62828]/20 bg-white/80 px-5 py-1 text-sm font-semibold uppercase tracking-[0.35em] text-[#C62828]">
+            Fee Structure
+          </span>
+          <h1 className="mx-auto max-w-4xl text-4xl font-display font-semibold text-[#1F2937] sm:text-5xl">
+            Plans designed for momentum — not lock-in.
+          </h1>
+          <p className="mx-auto max-w-3xl text-lg text-[#4B5563]">
+            Choose the cadence that matches your family rhythm. Every plan includes flexible rescheduling, progress
+            reports, and parent-expert connects.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            {['No registration charges', 'Sibling advantage available', 'Free demo before enrolment'].map((item) => (
+              <span
+                key={item}
+                className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#C62828] shadow-[0_6px_18px_rgba(198,40,40,0.12)]"
+              >
+                {item}
               </span>
-              <span className="bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-semibold">
-                Sibling Discounts Available
-              </span>
-              <span className="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold">
-                No Hidden Charges
-              </span>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Fee Plans Section */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
+      {/* Pricing */}
+      <Section background="white">
+        <div className="flex flex-col gap-10">
           <SectionHeading
-            title="Choose Your Plan"
-            subtitle="Flexible options designed to meet your family's needs and budget"
+            title="Choose a plan that fits your family"
+            subtitle="Every tier includes weekly doubt resolution, mentor updates, and personalised resources."
           />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
-            {feePlans.map((plan, index) => (
+          <div className="grid gap-8 lg:grid-cols-4">
+            {pricingTiers.map((tier) => (
               <div
-                key={plan.name}
-                className={`relative bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 ${
-                  plan.popular ? 'ring-2 ring-primary' : ''
-                }`}
+                key={tier.name}
+                className={`relative flex h-full flex-col rounded-3xl border ${
+                  tier.featured
+                    ? 'border-[#C62828] bg-[#FFF2EF] shadow-[0_26px_54px_rgba(198,40,40,0.18)]'
+                    : 'border-[#F3F4F6] bg-white shadow-[0_20px_44px_rgba(31,41,55,0.08)]'
+                } p-7`}
               >
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-primary text-white px-4 py-1 rounded-full text-sm font-semibold">
-                      Most Popular
-                    </span>
-                  </div>
+                {tier.badge && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#C62828] px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_12px_28px_rgba(198,40,40,0.22)]">
+                    {tier.badge}
+                  </span>
                 )}
-                
-                <div className="text-center mb-6">
-                  <h3 className="text-xl font-display font-bold text-ink mb-2">
-                    {plan.name}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-4">
-                    {plan.description}
-                  </p>
-                  <div className="text-2xl font-bold text-primary">
-                    {plan.price}
-                  </div>
+                <div className="flex items-center gap-3 text-[#C62828]">
+                  <tier.icon className="h-6 w-6" />
+                  <h3 className="text-lg font-semibold text-[#1F2937]">{tier.name}</h3>
                 </div>
-                
-                <ul className="space-y-3 mb-6">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start space-x-2">
-                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">{feature}</span>
+                <p className="mt-3 text-sm text-[#4B5563]">{tier.headline}</p>
+                <div className="mt-6 flex items-baseline gap-1">
+                  <span className="text-3xl font-display font-semibold text-[#C62828]">{tier.price}</span>
+                  <span className="text-xs text-[#4B5563]">{tier.unit}</span>
+                </div>
+                <ul className="mt-6 space-y-3 text-sm text-[#374151]">
+                  {tier.highlights.map((highlight) => (
+                    <li key={highlight} className="flex items-start gap-3">
+                      <Check className="mt-1 h-4 w-4 flex-shrink-0 text-[#F59E0B]" />
+                      <span>{highlight}</span>
                     </li>
                   ))}
                 </ul>
-                
-                <button className="w-full btn-outline text-sm">
-                  Learn More
-                </button>
+                <Link
+                  to="/demo"
+                  className="mt-8 inline-flex items-center justify-center rounded-full bg-[#C62828] px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#B71C1C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                >
+                  Book free demo to confirm seat
+                </Link>
+                <p className="mt-3 text-xs text-[#6B7280]">Switch or upgrade any time — difference billed proportionately.</p>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* Benefits Section */}
-      <section className="section-padding bg-gray-50">
-        <div className="container-custom">
+      {/* Assurance */}
+      <Section background="paper">
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
+          <div className="space-y-6">
+            <SectionHeading
+              title="Pricing with absolute clarity"
+              subtitle="We publish every clause upfront so your family can focus on learning, not fine print."
+              centered={false}
+            />
+            <div className="grid gap-6 sm:grid-cols-2">
+              {assurancePoints.map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-3xl border border-white/70 bg-white p-6 shadow-[0_18px_40px_rgba(31,41,55,0.07)]"
+                >
+                  <item.icon className="h-6 w-6 text-[#C62828]" />
+                  <h3 className="mt-4 text-base font-semibold text-[#1F2937]">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#4B5563]">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <aside className="flex h-full flex-col justify-between rounded-3xl bg-gradient-to-br from-[#C62828] via-[#B71C1C] to-[#8C1B1B] p-8 text-white shadow-[0_28px_56px_rgba(198,40,40,0.22)]">
+            <div>
+              <h3 className="text-2xl font-display font-semibold">Need help choosing?</h3>
+              <p className="mt-3 text-sm text-white/80">
+                Share your child’s current grade, subjects, and goals. We’ll send a custom fee proposal within 24 hours.
+              </p>
+            </div>
+            <div className="mt-6 flex flex-col gap-3 text-sm text-white/80">
+              <span>• Instalment reminders reach you 5 days in advance.</span>
+              <span>• Auto-renewal is optional — we check in before every billing cycle.</span>
+            </div>
+            <Link
+              to="/contact"
+              className="mt-8 inline-flex items-center justify-center rounded-full bg-white px-5 py-2 text-sm font-semibold text-[#C62828] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#FDECEC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+            >
+              Talk to our advisor
+            </Link>
+          </aside>
+        </div>
+      </Section>
+
+      {/* FAQ */}
+      <Section background="white">
+        <div className="flex flex-col gap-10">
           <SectionHeading
-            title="Why Choose Our Fee Structure"
-            subtitle="Transparent, flexible, and designed with families in mind"
+            title="Fee FAQs"
+            subtitle="Clear answers to help you decide faster."
           />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
-            {benefits.map((benefit, index) => (
-              <div key={benefit.title} className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-primary to-accent rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <benefit.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-lg font-semibold text-ink mb-2">
-                  {benefit.title}
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  {benefit.description}
-                </p>
-              </div>
-            ))}
+          <div className="mx-auto w-full max-w-3xl">
+            <ul className="divide-y divide-[#E5E7EB] rounded-3xl border border-[#F3F4F6] bg-white shadow-[0_18px_40px_rgba(31,41,55,0.07)]">
+              {faqs.map((faq, index) => {
+                const isOpen = openFaq === index
+                return (
+                  <li key={faq.question}>
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaq(isOpen ? null : index)}
+                      className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-${index}`}
+                    >
+                      <span className="text-sm font-semibold text-[#1F2937]">{faq.question}</span>
+                      <span
+                        className={`inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#C62828]/40 text-xs text-[#C62828] transition-transform duration-200 ${
+                          isOpen ? 'rotate-45' : ''
+                        }`}
+                      >
+                        +
+                      </span>
+                    </button>
+                    <div
+                      id={`faq-${index}`}
+                      role="region"
+                      aria-hidden={!isOpen}
+                      className={`grid overflow-hidden transition-all duration-300 ${
+                        isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                      }`}
+                    >
+                      <div className="px-6 pb-5 text-sm leading-relaxed text-[#4B5563]">
+                        {faq.answer}
+                      </div>
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* Payment Options Section */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-display font-bold text-ink text-center mb-8">
-              Flexible Payment Options
+      {/* CTA + Form */}
+      <Section background="paper">
+        <div className="flex flex-col gap-12">
+          <div className="rounded-3xl border border-white/70 bg-white/90 p-8 text-center shadow-[0_24px_48px_rgba(31,41,55,0.08)]">
+            <h2 className="text-2xl font-display font-semibold text-[#1F2937] sm:text-3xl">
+              Ready for a personalised fee quote?
             </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center p-6 bg-gray-50 rounded-2xl">
-                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white font-bold">1</span>
-                </div>
-                <h3 className="text-lg font-semibold text-ink mb-2">Monthly Payment</h3>
-                <p className="text-gray-600 text-sm">
-                  Pay monthly for maximum flexibility and easy budgeting
-                </p>
-              </div>
-              
-              <div className="text-center p-6 bg-gray-50 rounded-2xl">
-                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white font-bold">2</span>
-                </div>
-                <h3 className="text-lg font-semibold text-ink mb-2">Quarterly Payment</h3>
-                <p className="text-gray-600 text-sm">
-                  Pay every 3 months and save 5% on your total fees
-                </p>
-              </div>
-              
-              <div className="text-center p-6 bg-gray-50 rounded-2xl">
-                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white font-bold">3</span>
-                </div>
-                <h3 className="text-lg font-semibold text-ink mb-2">Annual Payment</h3>
-                <p className="text-gray-600 text-sm">
-                  Pay for the full year and save 10% on your total fees
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Sibling Discount Section */}
-      <section className="section-padding bg-accent/10">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-display font-bold text-ink mb-6">
-              Special Family Discounts
-            </h2>
-            <p className="text-xl text-gray-600 mb-8">
-              We understand that education is a family investment. That's why we offer special discounts for families with multiple children.
+            <p className="mx-auto mt-3 max-w-2xl text-sm text-[#4B5563]">
+              We respond within a business day with the schedule, recommended plan, and introductory offers available for
+              your child’s grade.
             </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
-                <div className="text-3xl font-bold text-primary mb-2">10%</div>
-                <div className="text-gray-600">2nd Child</div>
-              </div>
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
-                <div className="text-3xl font-bold text-primary mb-2">15%</div>
-                <div className="text-gray-600">3rd Child</div>
-              </div>
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
-                <div className="text-3xl font-bold text-primary mb-2">20%</div>
-                <div className="text-gray-600">4th+ Child</div>
-              </div>
-            </div>
-            
-            <p className="text-gray-600 text-sm">
-              * Discounts apply to the lower-priced packages. Terms and conditions apply.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-3xl font-display font-bold text-ink mb-6">
-              Get Your Personalized Fee Quote
-            </h2>
-            <p className="text-xl text-gray-600 mb-8">
-              Tell us about your child's needs and we'll create a flexible fee plan that works for your family.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <a
                 href={config.social.whatsapp}
-                className="btn-secondary flex items-center justify-center space-x-2"
+                className="inline-flex items-center justify-center rounded-full bg-[#C62828] px-5 py-2 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#B71C1C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
-                <MessageCircle className="w-5 h-5" />
-                <span>Discuss on WhatsApp</span>
+                <MessageCircle className="mr-2 h-4 w-4" />
+                Chat on WhatsApp
               </a>
-              <a
-                href={config.social.phone}
-                className="btn-outline flex items-center justify-center space-x-2"
-              >
-                <span>Call for Quote</span>
-              </a>
+              <span className="text-xs text-[#6B7280]">or fill the form below</span>
             </div>
           </div>
-          
           <InquiryForm type="fee-quote" />
         </div>
-      </section>
+      </Section>
     </div>
   )
 }
-

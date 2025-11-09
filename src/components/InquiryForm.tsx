@@ -36,8 +36,7 @@ export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-    watch
+    reset
   } = useForm<InquiryFormData>({
     resolver: zodResolver(inquirySchema),
     defaultValues: {
@@ -46,8 +45,6 @@ export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
       nickname: ''
     }
   })
-
-  const watchedSubjects = watch('subjects')
 
   const onSubmit = async (data: InquiryFormData) => {
     // Check honeypot
@@ -352,4 +349,3 @@ export function InquiryForm({ type, onSuccess }: InquiryFormProps) {
     </motion.div>
   )
 }
-

@@ -1,291 +1,245 @@
+import { motion } from 'framer-motion'
+import { CalendarCheck, Users, ClipboardCheck, Smile, Star, MessageCircle, Shield, Rocket } from 'lucide-react'
+import { Section } from '../components/ui/Section'
 import { SectionHeading } from '../components/SectionHeading'
 import { InquiryForm } from '../components/InquiryForm'
-import { Clock, Users, Target, CheckCircle, Star, BookOpen } from 'lucide-react'
 import config from '../site.config'
 
-const demoFeatures = [
+const steps = [
   {
-    icon: Clock,
-    title: "30 Minutes",
-    description: "Free demo class to experience our teaching methods"
+    title: 'Reserve',
+    description: 'Pick a slot that suits your family. Our coordinator confirms within a business day.',
+    icon: CalendarCheck
   },
   {
-    icon: Users,
-    title: "Meet the Teacher",
-    description: "Get to know our experienced and caring teachers"
+    title: 'Experience',
+    description: 'Your child joins a 30-minute micro class tailored to their current grade.',
+    icon: Users
   },
   {
-    icon: Target,
-    title: "Level Assessment",
-    description: "We'll assess your child's current academic level"
-  },
-  {
-    icon: CheckCircle,
-    title: "No Obligation",
-    description: "No pressure to enroll - just a friendly introduction"
+    title: 'Review',
+    description: 'We share a personalised feedback note and next steps you can act on immediately.',
+    icon: ClipboardCheck
   }
 ]
 
-const demoProcess = [
+const demoChecklist = [
+  'Concept warm-up to understand comfort levels',
+  'Interactive teaching piece (not a lecture!)',
+  'Quick retention game or reflective question',
+  'Parent debrief with clear action pointers',
+  'Access to starter resource pack valid for 7 days'
+]
+
+const trustBadges = [
   {
-    step: "1",
-    title: "Book Your Slot",
-    description: "Choose a convenient time for your free demo class"
+    label: 'Zero Pressure',
+    description: 'Demo is obligation-free with no follow-up spam.',
+    icon: Shield
   },
   {
-    step: "2",
-    title: "Meet & Greet",
-    description: "Meet our teacher and discuss your child's needs"
+    label: 'Friendly Mentors',
+    description: 'Every facilitator is trained in child-first communication.',
+    icon: Smile
   },
   {
-    step: "3",
-    title: "Experience Learning",
-    description: "Your child participates in a 30-minute sample class"
-  },
-  {
-    step: "4",
-    title: "Get Feedback",
-    description: "Receive detailed feedback and recommendations"
+    label: 'Ready-to-Use Tips',
+    description: 'Parents leave with practice ideas regardless of enrolment.',
+    icon: Rocket
   }
 ]
 
-const testimonials = [
+const parentVoices = [
   {
-    name: "Priya Sharma",
-    text: "The demo class was amazing! My daughter was so engaged and excited. The teacher was patient and made learning fun.",
-    rating: 5
+    name: 'Nisha Vora',
+    quote:
+      'The mentor quickly spotted where my son hesitates and gave us two strategies we could try that very evening. The session felt personal and warm.',
+    highlight: 'Grade 5 · Maths demo'
   },
   {
-    name: "Rajesh Patel",
-    text: "We could see the difference immediately. The small batch size and individual attention really made a difference.",
-    rating: 5
-  },
-  {
-    name: "Sunita Mehta",
-    text: "The teacher took time to understand my son's learning style. The demo convinced us to enroll right away.",
-    rating: 5
+    name: 'Parag Chauhan',
+    quote:
+      'I loved that the demo mirrored an actual class with peers. The post-session note summarised strengths and focus areas beautifully.',
+    highlight: 'Grade 8 · Science demo'
   }
 ]
 
 export function Demo() {
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-paper via-white to-gray-50">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-ink mb-6">
-              Book Your Free Demo Class
-            </h1>
-            <p className="text-xl text-gray-600 leading-relaxed mb-8">
-              {config.demoNote} Experience our teaching methods and see how we can help your child excel.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <span className="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold">
-                Free 30-Minute Demo
-              </span>
-              <span className="bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-semibold">
-                Meet Our Teachers
-              </span>
-              <span className="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold">
-                No Obligation
-              </span>
+    <div className="bg-bg text-[#1F2937]">
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#FFF9F2] via-white to-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(245,158,11,0.2),_transparent_55%)] pointer-events-none" />
+        <div className="relative mx-auto flex max-w-[1200px] flex-col items-center gap-8 px-6 py-24 text-center lg:px-10">
+          <span className="inline-flex items-center rounded-full border border-[#C62828]/20 bg-white/80 px-4 py-1 text-sm font-semibold uppercase tracking-[0.35em] text-[#C62828]">
+            Free Demo Class
+          </span>
+          <h1 className="max-w-4xl text-4xl font-display font-semibold text-[#1F2937] sm:text-5xl">
+            One session to understand our vibe, structure, and mentorship style.
+          </h1>
+          <p className="max-w-3xl text-lg text-[#4B5563]">
+            Spark & Shine demos are intentionally small-group so children can experience the real classroom dynamic. The
+            call ends with practical takeaways for your family.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            {['Tailored to your child', '30 minutes of interactive learning', 'Feedback loop within 12 hours'].map(
+              (item) => (
+                <span
+                  key={item}
+                  className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#C62828] shadow-[0_6px_18px_rgba(198,40,40,0.12)]"
+                >
+                  {item}
+                </span>
+              )
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Steps */}
+      <Section background="white">
+        <div className="flex flex-col gap-10">
+          <SectionHeading
+            title="How the demo unfolds"
+            subtitle="Three simple steps that respect your family’s time."
+          />
+          <div className="grid gap-6 md:grid-cols-3">
+            {steps.map((step, index) => (
+              <motion.div
+                key={step.title}
+                className="rounded-3xl border border-[#F3F4F6] bg-white p-6 text-left shadow-[0_20px_44px_rgba(31,41,55,0.08)]"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <span className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C62828]/10 text-[#C62828]">
+                  <step.icon className="h-6 w-6" />
+                </span>
+                <h3 className="text-lg font-semibold text-[#1F2937]">{step.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-[#4B5563]">{step.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* Checklist */}
+      <Section background="paper">
+        <div className="flex flex-col gap-10 lg:grid lg:grid-cols-[1.1fr_1fr]">
+          <div className="space-y-6">
+            <SectionHeading
+              title="During the demo you’ll see"
+              subtitle="A condensed version of the Spark & Shine classroom, crafted for first impressions."
+              centered={false}
+            />
+            <ul className="space-y-4 rounded-3xl border border-white/70 bg-white/90 p-6 text-sm text-[#4B5563] shadow-[0_20px_44px_rgba(31,41,55,0.07)]">
+              {demoChecklist.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <Star className="mt-1 h-4 w-4 flex-shrink-0 text-[#F59E0B]" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="rounded-3xl border border-dashed border-[#C62828]/30 bg-[#FFF2EF] p-6 text-sm text-[#B71C1C]">
+              Parents also receive a learning snapshot PDF summarising focus areas, suggested resources, and next steps
+              after the demo.
             </div>
           </div>
+          <div className="flex flex-col justify-between rounded-3xl bg-gradient-to-br from-[#C62828] via-[#B71C1C] to-[#8C1B1B] p-8 text-white shadow-[0_26px_54px_rgba(198,40,40,0.22)]">
+            <h3 className="text-2xl font-display font-semibold">Helpful to keep in mind</h3>
+            <ul className="mt-4 space-y-3 text-sm text-white/85">
+              <li>• Encourage your child to join from a quiet space with a notebook.</li>
+              <li>• Parents can stay on mute to observe or jump in during the last five minutes.</li>
+              <li>• We’ll resend a recording if you opt for the digital demo format.</li>
+            </ul>
+            <a
+              href={config.social.whatsapp}
+              className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-[#C62828] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#FDECEC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+            >
+              <MessageCircle className="h-4 w-4" />
+              Ask for a reminder
+            </a>
+          </div>
         </div>
-      </section>
+      </Section>
 
-      {/* Demo Features Section */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
+      {/* Trust badges */}
+      <Section background="white">
+        <div className="flex flex-col gap-10">
           <SectionHeading
-            title="What to Expect in Your Demo Class"
-            subtitle="A comprehensive introduction to our teaching approach and learning environment"
+            title="Why families love our demos"
+            subtitle="A preview that feels caring, actionable, and pressure-free."
           />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
-            {demoFeatures.map((feature, index) => (
-              <div key={feature.title} className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-primary to-accent rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <feature.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-lg font-semibold text-ink mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  {feature.description}
-                </p>
+          <div className="grid gap-6 md:grid-cols-3">
+            {trustBadges.map((badge) => (
+              <div
+                key={badge.label}
+                className="rounded-3xl border border-[#F3F4F6] bg-white/90 p-6 text-center shadow-[0_18px_40px_rgba(31,41,55,0.07)]"
+              >
+                <badge.icon className="mx-auto h-7 w-7 text-[#C62828]" />
+                <h3 className="mt-4 text-base font-semibold text-[#1F2937]">{badge.label}</h3>
+                <p className="mt-2 text-sm text-[#4B5563]">{badge.description}</p>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* Demo Process Section */}
-      <section className="section-padding bg-gray-50">
-        <div className="container-custom">
+      {/* Parent voices */}
+      <Section background="paper">
+        <div className="flex flex-col gap-8">
           <SectionHeading
-            title="How It Works"
-            subtitle="Simple steps to book and attend your free demo class"
+            title="Parents after the demo"
+            subtitle="Two recent notes that capture the experience."
           />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
-            {demoProcess.map((step, index) => (
-              <div key={step.step} className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-white">{step.step}</span>
-                </div>
-                <h3 className="text-lg font-semibold text-ink mb-2">
-                  {step.title}
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  {step.description}
-                </p>
-              </div>
+          <div className="grid gap-6 md:grid-cols-2">
+            {parentVoices.map((voice) => (
+              <blockquote
+                key={voice.name}
+                className="h-full rounded-3xl border border-white/70 bg-white p-6 shadow-[0_20px_44px_rgba(31,41,55,0.08)]"
+              >
+                <p className="text-sm leading-relaxed text-[#4B5563]">&ldquo;{voice.quote}&rdquo;</p>
+                <footer className="mt-4">
+                  <span className="block text-sm font-semibold text-[#1F2937]">{voice.name}</span>
+                  <span className="text-xs text-[#6B7280]">{voice.highlight}</span>
+                </footer>
+              </blockquote>
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* Why Demo is Important Section */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-display font-bold text-ink text-center mb-8">
-              Why a Demo Class is Important
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <CheckCircle className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-ink mb-2">See Our Teaching Style</h4>
-                    <p className="text-gray-600">Experience firsthand how we make learning engaging and effective.</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <Users className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-ink mb-2">Meet Our Teachers</h4>
-                    <p className="text-gray-600">Get to know our experienced and caring teaching staff.</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <Target className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-ink mb-2">Assess Your Child's Needs</h4>
-                    <p className="text-gray-600">We'll evaluate your child's current level and learning style.</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <BookOpen className="w-4 h-4 text-ink" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-ink mb-2">Understand Our Curriculum</h4>
-                    <p className="text-gray-600">Learn about our structured approach and teaching methodology.</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <Star className="w-4 h-4 text-ink" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-ink mb-2">Build Confidence</h4>
-                    <p className="text-gray-600">Help your child feel comfortable in our learning environment.</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <CheckCircle className="w-4 h-4 text-ink" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-ink mb-2">Make Informed Decision</h4>
-                    <p className="text-gray-600">Choose the best educational path for your child with confidence.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="section-padding bg-gray-50">
-        <div className="container-custom">
+      {/* Form */}
+      <Section background="white">
+        <div className="flex flex-col gap-10" id="demo-form">
           <SectionHeading
-            title="What Parents Say About Our Demo Classes"
-            subtitle="Hear from families who experienced our teaching approach firsthand"
+            title="Secure your demo slot"
+            subtitle="Let us know your preferred timing and academic goals. We’ll orchestrate the rest."
           />
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white rounded-2xl p-6 shadow-lg">
-                <div className="flex space-x-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 text-accent fill-current"
-                    />
-                  ))}
-                </div>
-                <blockquote className="text-gray-700 mb-4">
-                  "{testimonial.text}"
-                </blockquote>
-                <div className="font-semibold text-ink">{testimonial.name}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Demo Form Section */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
           <InquiryForm type="demo" />
         </div>
-      </section>
+      </Section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-primary text-white">
-        <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
-            Ready to Experience the Difference?
+      {/* CTA */}
+      <section className="bg-gradient-to-br from-[#C62828] via-[#B71C1C] to-[#8C1B1B] py-16 text-white">
+        <div className="mx-auto flex max-w-[1100px] flex-col items-center gap-6 px-6 text-center lg:px-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/70">Next steps</p>
+          <h2 className="max-w-2xl text-3xl font-display font-semibold">
+            Want a quick consult before booking?
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Book your free demo class today and see how we can help your child achieve academic success.
+          <p className="max-w-2xl text-sm text-white/85">
+            Call us between 3:30 PM – 8:30 PM IST, Monday through Saturday. We can match you with the right mentor on the
+            same call.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#demo-form"
-              className="bg-white text-primary px-8 py-3 rounded-2xl font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105"
-            >
-              Book Demo Now
-            </a>
-            <a
-              href={config.social.phone}
-              className="border-2 border-white text-white px-8 py-3 rounded-2xl font-semibold hover:bg-white hover:text-primary transition-all duration-300"
-            >
-              Call for Questions
-            </a>
-          </div>
+          <a
+            href={config.social.phone}
+            className="inline-flex items-center justify-center rounded-full bg-white px-5 py-2 text-sm font-semibold text-[#C62828] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#FDECEC]"
+          >
+            Call the team
+          </a>
         </div>
       </section>
     </div>
   )
 }
-

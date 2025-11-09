@@ -1,21 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
-import { motion } from 'framer-motion'
 
 export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const location = useLocation()
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
@@ -26,164 +13,206 @@ export function Navbar() {
     { name: 'Contact', path: '/contact' },
   ]
 
-  return (
-    <nav className={`bg-gradient-to-b from-white/95 via-paper/95 to-white/90 backdrop-blur-md sticky top-0 z-40 border-b transition-all duration-200 ${
-      scrolled ? 'shadow-lg border-white/50' : 'shadow-sm border-white/30'
-    }`}>
-      <div className="container-constrained">
-        <div className="flex justify-between items-center py-4">
-          {/* Logo with magical glow */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Link to="/" className="flex items-center space-x-2 group">
-              <motion.div
-                className="w-10 h-10 bg-gradient-to-br from-primary to-primary-600 rounded-xl flex items-center justify-center relative overflow-hidden"
-                animate={{
-                  boxShadow: [
-                    "0 0 0px rgba(215,38,61,0.4)",
-                    "0 0 20px rgba(215,38,61,0.6)",
-                    "0 0 0px rgba(215,38,61,0.4)"
-                  ]
-                }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                {/* Shimmer effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                  animate={{
-                    x: ['-100%', '200%'],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                />
-                <span className="text-white font-bold text-xl relative z-10">S&S</span>
-              </motion.div>
-              <div>
-                <motion.h1
-                  className="text-xl font-display font-bold text-ink group-hover:text-primary transition-colors duration-300"
-                  whileHover={{ x: 2 }}
-                >
-                  Spark & Shine
-                </motion.h1>
-                <p className="text-xs text-muted">Tuition Classes</p>
-              </div>
-            </Link>
-          </motion.div>
+  const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const location = useLocation()
+  const menuRef = useRef<HTMLDivElement>(null)
+  const previousFocus = useRef<HTMLElement | null>(null)
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
-            {navItems.map((item) => (
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 8)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsOpen(false)
+      }
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
+    if (!isOpen) {
+      return
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+        return
+      }
+
+      if (event.key === 'Tab' && menuRef.current) {
+        const focusable = menuRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+        if (!focusable.length) {
+          return
+        }
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+        const active = document.activeElement as HTMLElement | null
+
+        if (event.shiftKey) {
+          if (active === first) {
+            event.preventDefault()
+            last.focus()
+          }
+        } else if (active === last) {
+          event.preventDefault()
+          first.focus()
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen])
+
+  useEffect(() => {
+    if (isOpen) {
+      previousFocus.current = document.activeElement as HTMLElement | null
+      document.body.style.overflow = 'hidden'
+      requestAnimationFrame(() => {
+        const firstFocusable = menuRef.current?.querySelector<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+        firstFocusable?.focus()
+      })
+    } else {
+      document.body.style.overflow = ''
+      previousFocus.current?.focus?.()
+    }
+  }, [isOpen])
+
+  useEffect(() => {
+    setIsOpen(false)
+  }, [location.pathname])
+
+  const headerClass = `sticky top-0 z-50 border-b transition-all duration-300 ${
+    scrolled
+      ? 'bg-white/90 backdrop-blur-[6px] shadow-[0_8px_24px_rgba(0,0,0,0.08)] border-black/10'
+      : 'bg-gradient-to-b from-orange-50/80 via-white/90 to-white/95 backdrop-blur-[2px] shadow-[0_6px_18px_rgba(0,0,0,0.06)] border-black/5'
+  }`
+
+  const linkBase =
+    'group relative inline-flex items-center text-sm font-medium tracking-wide transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent'
+
+  const overlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      setIsOpen(false)
+    }
+  }
+
+  return (
+    <header className={headerClass}>
+      <div className="mx-auto flex h-[72px] max-w-[1200px] items-center justify-between px-6 lg:px-8">
+        <Link to="/" className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent">
+          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#C62828] to-[#B71C1C] text-lg font-semibold text-white shadow-[0_10px_24px_rgba(198,40,40,0.25)]">
+          📖
+          </span>
+          <span className="flex flex-col leading-tight">
+            <span className="text-lg font-display font-semibold text-slate-900">
+              Spark & Shine
+            </span>
+            <span className="text-xs font-medium uppercase tracking-[0.3em] text-slate-500">
+              Tuition Classes
+            </span>
+          </span>
+        </Link>
+
+        <nav className="hidden items-center gap-8 lg:flex">
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.path
+            return (
               <Link
                 key={item.name}
                 to={item.path}
-                className={`relative font-medium transition-colors duration-200 focus-ring group ${
-                  location.pathname === item.path
-                    ? 'text-primary'
-                    : 'text-muted hover:text-primary'
+                aria-current={isActive ? 'page' : undefined}
+                className={`${linkBase} ${
+                  isActive ? 'text-[#C62828]' : 'text-slate-600 hover:text-[#B71C1C]'
                 }`}
               >
-                {item.name}
-                {/* Underline animation on active/hover */}
-                {location.pathname === item.path && (
-                  <motion.div
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-accent"
-                    layoutId="navbar-indicator"
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
-                {/* Hover effect */}
-                <motion.div
-                  className="absolute -bottom-1 left-0 h-0.5 bg-primary"
-                  initial={{ width: 0 }}
-                  whileHover={{ width: "100%" }}
-                  transition={{ duration: 0.3 }}
+                <span>{item.name}</span>
+                <span
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute left-0 right-0 -bottom-[6px] h-[2px] rounded-full bg-[#C62828] transition-opacity duration-200 ${
+                    isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-60'
+                  }`}
                 />
               </Link>
-            ))}
-          </div>
+            )
+          })}
+        </nav>
 
-          {/* Desktop CTA */}
-          <motion.div
-            className="hidden lg:block"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+        <div className="hidden lg:flex items-center">
+          <Link
+            to="/demo"
+            className="inline-flex items-center justify-center rounded-full bg-[#C62828] px-5 py-2 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#B71C1C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
           >
-            <Link
-              to="/demo"
-              className="btn-primary"
-            >
-              Book Demo
-            </Link>
-          </motion.div>
-
-          {/* Mobile menu button */}
-          <motion.button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded-xl text-ink hover:bg-slate-100 transition-colors focus-ring"
-            aria-label="Toggle menu"
-            whileTap={{ scale: 0.9 }}
-          >
-            <motion.div
-              animate={{ rotate: isOpen ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </motion.div>
-          </motion.button>
+            Book Demo
+          </Link>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <motion.div
-            className="lg:hidden border-t border-slate-200 py-4"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+        <button
+          type="button"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full text-slate-700 transition-colors duration-200 hover:text-[#C62828] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent lg:hidden"
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
+      </div>
+
+      {isOpen && (
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-slate-900/35 backdrop-blur-[2px] lg:hidden"
+            onClick={overlayClick}
+          />
+          <div
+            ref={menuRef}
+            id="mobile-navigation"
+            className="fixed top-[72px] left-0 right-0 z-50 origin-top border-b border-black/10 bg-white/95 backdrop-blur-lg shadow-[0_20px_40px_rgba(0,0,0,0.12)] transition-transform duration-200 ease-out lg:hidden"
           >
-            <div className="flex flex-col space-y-4">
-              {navItems.map((item, i) => (
-                <motion.div
-                  key={item.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                >
+            <div className="mx-auto flex max-w-[1200px] flex-col gap-2 px-6 py-6">
+              {navItems.map((item) => {
+                const isActive = location.pathname === item.path
+                return (
                   <Link
+                    key={item.name}
                     to={item.path}
+                    aria-current={isActive ? 'page' : undefined}
                     onClick={() => setIsOpen(false)}
-                    className={`font-medium py-2 px-4 rounded-xl transition-colors focus-ring ${
-                      location.pathname === item.path
-                        ? 'text-primary bg-primary/10'
-                        : 'text-muted hover:text-primary hover:bg-slate-50'
+                    className={`block rounded-xl px-4 py-3 text-base font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-white ${
+                      isActive
+                        ? 'bg-[#C62828]/10 text-[#C62828]'
+                        : 'text-slate-700 hover:bg-slate-100 hover:text-[#B71C1C]'
                     }`}
                   >
                     {item.name}
                   </Link>
-                </motion.div>
-              ))}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navItems.length * 0.05 }}
+                )
+              })}
+              <Link
+                to="/demo"
+                onClick={() => setIsOpen(false)}
+                className="mt-2 inline-flex items-center justify-center rounded-full bg-[#C62828] px-5 py-3 text-base font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#B71C1C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
-                <Link
-                  to="/demo"
-                  onClick={() => setIsOpen(false)}
-                  className="btn-primary text-center mt-4 block"
-                >
-                  Book Free Demo
-                </Link>
-              </motion.div>
+                Book a Free Demo
+              </Link>
             </div>
-          </motion.div>
-        )}
-      </div>
-    </nav>
+          </div>
+        </>
+      )}
+    </header>
   )
 }

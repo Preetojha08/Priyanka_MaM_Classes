@@ -1,295 +1,174 @@
+import { MapPin, Phone, Mail, Clock, MessageCircle, Sparkles, Compass } from 'lucide-react'
+import { Section } from '../components/ui/Section'
 import { SectionHeading } from '../components/SectionHeading'
 import { InquiryForm } from '../components/InquiryForm'
-import { Phone, Mail, MapPin, Clock, MessageCircle, Send } from 'lucide-react'
 import config from '../site.config'
 
-const contactInfo = [
+const contactHighlights = [
   {
-    icon: Phone,
-    title: 'Phone',
+    title: 'Call the Studio',
+    description: 'Reach our academic advisor between 3:30 PM – 8:30 PM IST, Monday to Saturday.',
     value: config.phone,
-    link: config.social.phone,
-    description: 'Call us for immediate assistance'
+    href: config.social.phone,
+    icon: Phone
   },
   {
-    icon: MessageCircle,
-    title: 'WhatsApp',
+    title: 'WhatsApp for Quick Replies',
+    description: 'Share report cards or questions and we’ll respond within a few hours.',
     value: config.whatsapp,
-    link: config.social.whatsapp,
-    description: 'Quick response via WhatsApp'
+    href: config.social.whatsapp,
+    icon: MessageCircle
   },
   {
-    icon: Mail,
-    title: 'Email',
+    title: 'Write to Us',
+    description: 'Send detailed concerns, learning goals, or feedback anytime.',
     value: config.email,
-    link: config.social.email,
-    description: 'Send us an email anytime'
-  },
-  {
-    icon: MapPin,
-    title: 'Address',
-    value: config.address,
-    link: `https://maps.google.com/?q=${encodeURIComponent(config.address)}`,
-    description: 'Visit us at our location'
-  },
-  {
-    icon: Clock,
-    title: 'Hours',
-    value: config.hours,
-    link: null,
-    description: 'Our class timings'
+    href: config.social.email,
+    icon: Mail
   }
 ]
 
-const quickActions = [
+const visitDetails = [
   {
-    title: 'Book Demo Class',
-    description: 'Experience our teaching methods',
-    link: '/demo',
-    icon: Send,
-    color: 'primary'
+    title: 'Studio Address',
+    description: config.address,
+    icon: MapPin
   },
   {
-    title: 'View Fee Plans',
-    description: 'Flexible pricing options',
-    link: '/fees',
-    icon: MessageCircle,
-    color: 'accent'
-  },
-  {
-    title: 'Browse Classes',
-    description: 'See our curriculum',
-    link: '/classes',
-    icon: Phone,
-    color: 'primary'
+    title: 'Learning Hours',
+    description: config.hours,
+    icon: Clock
   }
 ]
 
 export function Contact() {
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-paper via-white to-gray-50">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-ink mb-6">
-              Get in Touch
-            </h1>
-            <p className="text-xl text-gray-600 leading-relaxed mb-8">
-              Have questions about our classes? Want to know more about our teaching methods? 
-              We're here to help and would love to hear from you.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <span className="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold">
-                Quick Response
-              </span>
-              <span className="bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-semibold">
-                Free Consultation
-              </span>
-              <span className="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold">
-                Flexible Timings
-              </span>
-            </div>
-          </div>
+    <div className="bg-bg text-[#1F2937]">
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#FFF9F2] via-white to-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(198,40,40,0.12),_transparent_55%)] pointer-events-none" />
+        <div className="relative mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-24 text-center lg:px-10">
+          <span className="mx-auto inline-flex items-center rounded-full border border-[#C62828]/20 bg-white/80 px-5 py-1 text-sm font-semibold uppercase tracking-[0.35em] text-[#C62828]">
+            Contact Spark & Shine
+          </span>
+          <h1 className="mx-auto max-w-4xl text-4xl font-display font-semibold text-[#1F2937] sm:text-5xl">
+            We’re here to listen, guide, and cheer for your child.
+          </h1>
+          <p className="mx-auto max-w-3xl text-lg text-[#4B5563]">
+            Whether you’d like to explore batches, book a demo, or understand how we personalise learning, our team is
+            just a message away.
+          </p>
         </div>
       </section>
 
-      {/* Contact Information */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
+      {/* Highlights */}
+      <Section background="white">
+        <div className="flex flex-col gap-10">
           <SectionHeading
-            title="Contact Information"
-            subtitle="Multiple ways to reach us - choose what works best for you"
+            title="Connect your way"
+            subtitle="Pick the channel that suits you best. We respond within one business day."
           />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {contactInfo.map((info, index) => (
-              <div key={info.title} className="text-center group">
-                <div className="w-16 h-16 bg-gradient-to-r from-primary to-accent rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <info.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-lg font-semibold text-ink mb-2">
-                  {info.title}
-                </h3>
-                {info.link ? (
-                  <a
-                    href={info.link}
-                    className="text-primary hover:text-primary/80 transition-colors font-medium"
-                  >
-                    {info.value}
-                  </a>
-                ) : (
-                  <p className="text-gray-700 font-medium">
-                    {info.value}
-                  </p>
-                )}
-                <p className="text-gray-600 text-sm mt-2">
-                  {info.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Actions */}
-      <section className="section-padding bg-gray-50">
-        <div className="container-custom">
-          <SectionHeading
-            title="Quick Actions"
-            subtitle="Common requests and how to get started"
-          />
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            {quickActions.map((action, index) => (
+          <div className="grid gap-6 md:grid-cols-3">
+            {contactHighlights.map((item) => (
               <a
-                key={action.title}
-                href={action.link}
-                className={`group block bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 ${
-                  action.color === 'primary' ? 'hover:border-primary' : 'hover:border-accent'
-                }`}
+                key={item.title}
+                href={item.href}
+                className="rounded-3xl border border-[#F3F4F6] bg-white p-6 shadow-[0_20px_40px_rgba(31,41,55,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(31,41,55,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(198,40,40,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4 ${
-                  action.color === 'primary' 
-                    ? 'bg-primary/10 group-hover:bg-primary/20' 
-                    : 'bg-accent/10 group-hover:bg-accent/20'
-                }`}>
-                  <action.icon className={`w-6 h-6 ${
-                    action.color === 'primary' ? 'text-primary' : 'text-accent'
-                  }`} />
-                </div>
-                <h3 className="text-lg font-semibold text-ink mb-2 text-center">
-                  {action.title}
-                </h3>
-                <p className="text-gray-600 text-sm text-center">
-                  {action.description}
-                </p>
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C62828]/10 text-[#C62828]">
+                  <item.icon className="h-6 w-6" />
+                </span>
+                <h3 className="mt-4 text-lg font-semibold text-[#1F2937]">{item.title}</h3>
+                <p className="mt-2 text-sm text-[#4B5563]">{item.description}</p>
+                <p className="mt-4 text-sm font-semibold text-[#C62828]">{item.value}</p>
               </a>
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* Map Section */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-display font-bold text-ink text-center mb-8">
-              Find Us
-            </h2>
-            <div className="bg-gray-200 rounded-2xl h-96 flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-600 mb-2">Interactive Map</h3>
-                <p className="text-gray-500 text-sm mb-4">
-                  {config.address}
-                </p>
-                <a
-                  href={`https://maps.google.com/?q=${encodeURIComponent(config.address)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary text-sm"
-                >
-                  Open in Google Maps
-                </a>
-              </div>
+      {/* Visit & Map */}
+      <Section background="paper">
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
+          <div className="rounded-3xl border border-white/70 bg-white/90 p-8 shadow-[0_24px_48px_rgba(31,41,55,0.08)]">
+            <SectionHeading
+              title="Drop by the studio"
+              subtitle="Book a short visit to observe a class or speak with a mentor."
+              centered={false}
+            />
+            <div className="mt-8 space-y-6 text-sm text-[#4B5563]">
+              {visitDetails.map((detail) => (
+                <div key={detail.title} className="flex items-start gap-3 rounded-2xl bg-[#FFF2EF] p-4">
+                  <detail.icon className="mt-1 h-5 w-5 text-[#C62828]" />
+                  <div>
+                    <p className="text-sm font-semibold text-[#1F2937]">{detail.title}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-[#4B5563]">{detail.description}</p>
+                  </div>
+                </div>
+              ))}
+              <p className="rounded-2xl border border-dashed border-[#C62828]/30 bg-white p-4 text-xs leading-relaxed text-[#B45309]">
+                Visits are by prior appointment so we can reserve a comfortable slot without disrupting ongoing batches.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col rounded-3xl border border-white/70 bg-white/90 shadow-[0_24px_48px_rgba(31,41,55,0.08)]">
+            <iframe
+              title="Spark & Shine Tuition Classes on Google Maps"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3716.7222251533275!2d72.998!3d21.6406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDM4JzI2LjIiTiA3MsKwNTknNTIuOCJF!5e0!3m2!1sen!2sin!4v1700000000000"
+              loading="lazy"
+              className="h-80 w-full rounded-t-3xl"
+              aria-label="Map showing Spark & Shine Tuition Classes location"
+            />
+            <div className="flex items-center justify-between gap-4 px-6 py-4 text-xs text-[#4B5563]">
+              <span className="inline-flex items-center gap-2 text-[#1F2937]">
+                <Compass className="h-4 w-4 text-[#C62828]" />
+                Parking is available nearby
+              </span>
+              <a
+                href={`https://maps.google.com/?q=${encodeURIComponent(config.address)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full bg-[#C62828] px-4 py-2 text-xs font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#B71C1C]"
+              >
+                Open in Maps
+              </a>
             </div>
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* Contact Form */}
-      <section className="section-padding bg-gray-50">
-        <div className="container-custom">
-          <InquiryForm type="contact" />
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
+      {/* Form */}
+      <Section background="white">
+        <div className="flex flex-col gap-10">
           <SectionHeading
-            title="Frequently Asked Questions"
-            subtitle="Quick answers to common questions about our classes and admission process"
+            title="Tell us about your child"
+            subtitle="Share current grade, preferred subjects, and goalposts. We reply within one business day."
           />
-          
-          <div className="max-w-4xl mx-auto mt-12">
-            <div className="space-y-6">
-              <div className="bg-gray-50 rounded-2xl p-6">
-                <h3 className="text-lg font-semibold text-ink mb-2">
-                  What is the maximum number of students per batch?
-                </h3>
-                <p className="text-gray-600">
-                  We maintain a maximum of 6 students per batch to ensure individual attention and personalized learning for each student.
-                </p>
-              </div>
-              
-              <div className="bg-gray-50 rounded-2xl p-6">
-                <h3 className="text-lg font-semibold text-ink mb-2">
-                  Do you offer classes for both CBSE and GSEB boards?
-                </h3>
-                <p className="text-gray-600">
-                  Yes, we provide comprehensive support for both CBSE and GSEB boards, covering all major subjects from Kindergarten to 9th grade.
-                </p>
-              </div>
-              
-              <div className="bg-gray-50 rounded-2xl p-6">
-                <h3 className="text-lg font-semibold text-ink mb-2">
-                  How can I book a free demo class?
-                </h3>
-                <p className="text-gray-600">
-                  You can book a free demo class by filling out the form above, calling us at {config.phone}, or messaging us on WhatsApp at {config.whatsapp}.
-                </p>
-              </div>
-              
-              <div className="bg-gray-50 rounded-2xl p-6">
-                <h3 className="text-lg font-semibold text-ink mb-2">
-                  Are the fees flexible?
-                </h3>
-                <p className="text-gray-600">
-                  Yes, our fees are flexible and depend on the subjects chosen and schedule preferences. We also offer sibling discounts and various payment options.
-                </p>
-              </div>
-              
-              <div className="bg-gray-50 rounded-2xl p-6">
-                <h3 className="text-lg font-semibold text-ink mb-2">
-                  What are your class timings?
-                </h3>
-                <p className="text-gray-600">
-                  Our classes run from Monday to Saturday, 3:30 PM to 8:30 PM IST. We can work with you to find the most convenient timing for your child.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="section-padding bg-primary text-white">
-        <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
-            Ready to Get Started?
-          </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Don't wait - book your free demo class today and see how we can help your child excel academically.
+          <InquiryForm type="contact" />
+          <p className="mx-auto max-w-2xl text-xs text-[#6B7280]">
+            By submitting this form you agree to receive communication about Spark & Shine programmes. We respect your
+            inbox and only reach out with relevant updates. Read our privacy commitments in the welcome mail we send.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/demo"
-              className="bg-white text-primary px-8 py-3 rounded-2xl font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105"
-            >
-              Book Free Demo
-            </a>
-            <a
-              href={config.social.whatsapp}
-              className="border-2 border-white text-white px-8 py-3 rounded-2xl font-semibold hover:bg-white hover:text-primary transition-all duration-300"
-            >
-              WhatsApp Us
-            </a>
-          </div>
+        </div>
+      </Section>
+
+      {/* CTA */}
+      <section className="bg-gradient-to-br from-[#C62828] via-[#B71C1C] to-[#8C1B1B] py-16 text-white">
+        <div className="mx-auto flex max-w-[1100px] flex-col items-center gap-6 px-6 text-center lg:px-10">
+          <Sparkles className="h-8 w-8 text-white/80" />
+          <h2 className="text-3xl font-display font-semibold">Prefer a quick callback?</h2>
+          <p className="max-w-2xl text-sm text-white/85">
+            Drop a WhatsApp message with “CALLBACK” and your available timing. Our coordinator gets back within the same
+            working day.
+          </p>
+          <a
+            href={config.social.whatsapp}
+            className="inline-flex items-center justify-center rounded-full bg-white px-5 py-2 text-sm font-semibold text-[#C62828] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#FDECEC]"
+          >
+            Message on WhatsApp
+          </a>
         </div>
       </section>
     </div>
   )
 }
-

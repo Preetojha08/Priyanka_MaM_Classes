@@ -1,3 +1,7 @@
+const apiUrl =
+  (import.meta as unknown as { env?: { VITE_CONTACT_API_URL?: string } }).env?.VITE_CONTACT_API_URL ||
+  "https://your-api-gateway-url.amazonaws.com/contact"
+
 export default {
   brand: "Spark & Shine Tuition Classes",
   phone: "+91 7227893222",
@@ -11,7 +15,7 @@ export default {
   admissionsNote: "Admission Open Now — Grab Your Seat",
   feesNote: "Fees are flexible based on subjects & schedule. Sibling discounts available.",
   demoNote: "Free 30-minute demo class — limited weekly slots.",
-  apiUrl: import.meta.env.VITE_CONTACT_API_URL || "https://your-api-gateway-url.amazonaws.com/contact",
+  apiUrl,
   
   // Social links
   social: {

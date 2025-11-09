@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Phone, Mail, MapPin, Clock, MessageCircle, Sparkles } from 'lucide-react'
+import { Phone, Mail, Clock, MessageCircle, Sparkles } from 'lucide-react'
 import config from '../site.config'
 
 export function Footer() {
@@ -31,9 +31,9 @@ export function Footer() {
       </div>
 
       <div className="relative">
-        <div className="container-constrained px-8 sm:px-10 lg:px-12 py-16 sm:py-20">
-          <div className="flex flex-col gap-16">
-            <div className="grid gap-12 lg:grid-cols-12">
+        <div className="container-constrained px-6 sm:px-8 lg:px-10 py-16 sm:py-20">
+          <div className="flex flex-col gap-14">
+            <div className="grid gap-8 lg:grid-cols-12">
               <div className="lg:col-span-5 space-y-6">
                 <div className="flex items-center space-x-3">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
@@ -62,7 +62,7 @@ export function Footer() {
                 </div>
               </div>
 
-              <div className="lg:col-span-7 grid gap-10 sm:grid-cols-3">
+              <div className="lg:col-span-7 grid gap-8 sm:grid-cols-3">
                 <div className="space-y-5">
                   <h4 className="text-lg font-display font-semibold tracking-wide text-white">
                     Quick Links
@@ -147,11 +147,11 @@ export function Footer() {
             </div>
 
             <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-xs font-medium uppercase tracking-[0.35em] text-white/60">
-                Spark & Shine Tuition Classes · Est. 2016
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-white/60">
+                Spark & Shine Tuition Classes - Est. 2016
               </p>
               <p className="text-sm leading-relaxed text-white/75">
-                © {new Date().getFullYear()} Spark & Shine Tuition Classes. All rights reserved.
+                Copyright {new Date().getFullYear()} Spark & Shine Tuition Classes. All rights reserved.
               </p>
               <a
                 href={config.social.whatsapp}
