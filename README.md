@@ -259,14 +259,6 @@ All content is centralized in `src/site.config.ts`:
 - Safari 14+
 - Edge 90+
 
-## 📞 Support
-
-For technical support or questions about the website:
-
-- **Email**: sparkandshine.classes@gmail.com
-- **Phone**: +91 7227893222
-- **WhatsApp**: +91 7227893222
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
